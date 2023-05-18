@@ -3,6 +3,12 @@ terraform {
     ansible = {
       version = "~> 1.1.0"
       source  = "ansible/ansible"
+      
+    }
+    local = {
+      version = "~> 2.4.0"
+      source  = "hashicorp/local"
+      
     }
   }
 }
@@ -48,7 +54,7 @@ resource "aws_instance" "web" {
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.web.id
   allocation_id = aws_eip.ip.id
-  public_ip = "3.10.222.34"
+#  public_ip = "3.10.222.34"
 }
 
 resource "aws_eip" "ip" {
@@ -56,14 +62,21 @@ resource "aws_eip" "ip" {
 
 }
 
+resource "local_file" "ip" {
+    content  = aws_instance.web.public_ip
+    filename = "./ansible/group_vars/ip.yaml"
+}
+
 resource "ansible_playbook" "playbook" {
   playbook   = "./ansible/playbook.yml"
   name       = "web"
   replayable = true
-  ignore_playbook_failure = true
+#  ignore_playbook_failure = true
   
   extra_vars = {
-
+   ansible_host = aws_instance.web.public_ip
+   ansible_ssh_user = "ubuntu"
+   ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
   }
 }
 
