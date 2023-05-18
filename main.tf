@@ -62,21 +62,19 @@ resource "aws_eip" "ip" {
 
 }
 
-resource "local_file" "ip" {
-    content  = aws_instance.web.public_ip
-    filename = "./ansible/group_vars/ip.yaml"
-}
 
 resource "ansible_playbook" "playbook" {
   playbook   = "./ansible/playbook.yml"
   name       = "web"
   replayable = true
+
 #  ignore_playbook_failure = true
   
   extra_vars = {
-   ansible_host = aws_instance.web.public_ip
-   ansible_ssh_user = "ubuntu"
-   ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
+  host = aws_instance.web.public_ip
+ #  ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
+
+
   }
 }
 
