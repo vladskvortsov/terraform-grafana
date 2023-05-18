@@ -1,0 +1,12 @@
+---
+
+- name: Deploy grafana
+  docker_container:
+    name: grafana
+    image: grafana/grafana-oss
+    pull: always
+    restart_policy: always
+    state: reloaded
+
+    ports:
+      - "3000:3000"
