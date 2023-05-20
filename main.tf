@@ -54,7 +54,7 @@ resource "aws_instance" "web" {
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.web.id
   allocation_id = aws_eip.ip.id
-#  public_ip = "3.10.222.34"
+
 }
 
 resource "aws_eip" "ip" {
@@ -62,10 +62,6 @@ resource "aws_eip" "ip" {
 
 }
 
-resource "local_file" "ip" {
-  content  = aws_instance.web.public_ip
-  filename = "${path.module}/ip.yaml"
-}
 
 
 resource "ansible_playbook" "playbook" {

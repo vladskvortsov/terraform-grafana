@@ -3,7 +3,7 @@
 - name: Deploy grafana
   docker_container:
     name: grafana
-    image: grafana/grafana-oss
+    image: grafana/grafana
     pull: true
     restart_policy: on-failure
     state: started
