@@ -16,9 +16,7 @@ terraform {
 
 provider "aws" {
   region     = "eu-west-2"
- 
-#  access_key = "${AWS_ACCESS_KEY_ID}"
-#  secret_key = "${AWS_SECRET_ACCESS_KEY}"
+
 }
 
 
@@ -38,6 +36,8 @@ resource "aws_instance" "web" {
   instance_type     = "t2.micro"
   key_name               = "key"
   vpc_security_group_ids = ["sg-00006d10243dc6666"]
+  monitoring             = true
+
 
   tags = {
     Name = "web"
@@ -62,19 +62,23 @@ resource "aws_eip" "ip" {
 
 }
 
+resource "local_file" "ip" {
+  content  = aws_instance.web.public_ip
+  filename = "${path.module}/ip.yaml"
+}
+
 
 resource "ansible_playbook" "playbook" {
   playbook   = "./ansible/playbook.yml"
   name       = "web"
   replayable = true
-
+ 
 #  ignore_playbook_failure = true
   
   extra_vars = {
-  host = aws_instance.web.public_ip
- #  ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
-
-
+  ansible_host = aws_instance.web.public_ip
+  ansible_ssh_user = "ubuntu"
+  ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
   }
 }
 
