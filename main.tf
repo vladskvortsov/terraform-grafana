@@ -5,11 +5,6 @@ terraform {
       source  = "ansible/ansible"
       
     }
-    local = {
-      version = "~> 2.4.0"
-      source  = "hashicorp/local"
-      
-    }
   }
 }
 
@@ -75,6 +70,7 @@ resource "ansible_playbook" "playbook" {
   ansible_host = aws_instance.web.public_ip
   ansible_ssh_user = "ubuntu"
   ansible_ssh_private_key_file = "~/terraform-grafana/key.pem"
+
   }
 }
 

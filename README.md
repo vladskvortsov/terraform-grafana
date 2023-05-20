@@ -7,11 +7,11 @@ A Terraform module for deploying Grafana container on AWS EC2 using Ansible.
 - AWS Account & AWS CLI Preconfigured (Security group and rules allowing ssh, and port 3000 for Grafana need manual configuration)
 
 
-## Configuratin steps:
+## Configuration steps:
 - Deploying single AWS EC2 instance;
 - Attach Elastic IP for instance;
 - Provision public key;
-- Installing Docker and deploying Grafana container for metrics scrapeing.
+- Installing Docker and deploying Grafana container for metrics scraping.
 
 To start provisioning clone this repo using :
 
@@ -36,6 +36,6 @@ http://13.42.200.69:3000
 
 > Note: `IMPORTANT NOTICES`
 
-This config uses t2.micro EC2 instance what is `FREE TIER ELIGIBLE` if your not have already pass resources limit for current month.
+This config uses t2.micro EC2 instance what is `FREE TIER ELIGIBLE` if you not have already passed the resources limit for the current month.
 
-Also remember Elastic IP is free option only when attached to instance.
+Also, remember Elastic IP is a free option only when attached to the instance.
