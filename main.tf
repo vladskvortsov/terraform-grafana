@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-backend "s3" {
-   region = var.aws_region
-   key    = "terraform.tfstate"
- }
 
 provider "aws" {
   region     = var.aws_region
