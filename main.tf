@@ -1,7 +1,6 @@
 terraform {
   required_providers {
     ansible = {
-      version = "~> 1.1.0"
       source  = "ansible/ansible"
       
     }
@@ -14,6 +13,11 @@ provider "aws" {
 
 }
 
+backend "s3" {
+   region = var.aws_region
+   key    = "terraform.tfstate"
+ }
+}
 
 resource "aws_key_pair" "key" {
   key_name   = var.key
