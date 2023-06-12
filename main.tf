@@ -17,7 +17,7 @@ backend "s3" {
    region = var.aws_region
    key    = "terraform.tfstate"
  }
-}
+
 
 resource "aws_key_pair" "key" {
   key_name   = var.key
