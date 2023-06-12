@@ -54,3 +54,8 @@ jobs:
      - name: Terraform Apply
        run: terraform apply -auto-approve -input=false
        continue-on-error: true
+
+     - name: Terraform Destroy
+       id: destroy
+       working-directory: ${{ github.event.inputs.resource }}
+       run: terraform destroy -auto-approve -var-file=terraform.tfvars
