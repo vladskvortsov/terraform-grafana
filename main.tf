@@ -7,15 +7,15 @@ terraform {
   }
 }
 
-provider "aws" {
-  region     = var.aws_region
-
-}
-
 backend "s3" {
    region = var.aws_region
    key    = "terraform.tfstate"
  }
+
+provider "aws" {
+  region     = var.aws_region
+
+}
 
 resource "aws_key_pair" "key" {
   key_name   = var.key
