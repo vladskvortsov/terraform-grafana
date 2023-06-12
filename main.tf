@@ -1,10 +1,14 @@
 terraform {
   required_providers {
     ansible = {
-      source  = "ansible/ansible"
-      
+      source  = "ansible/ansible"      
     }
-  }
+
+    aws = {
+     source = "hashicorp/aws"
+    }
+ }
+  
 backend "s3" {
    region = "eu-west-2"
    key    = "terraform.tfstate"
