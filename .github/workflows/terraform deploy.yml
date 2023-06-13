@@ -41,11 +41,9 @@ jobs:
        run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
 
     
- 
+
      - name: Terraform Plan
-       uses: hashicorp/terraform-github-actions@v0.5.4
-       with:
-         args: plan -var-file=terraform.tfvars
+       run: terraform plan -no-color -var-file=terraform.tfvars && ls
        continue-on-error: true
     
  
