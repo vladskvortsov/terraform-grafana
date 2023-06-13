@@ -44,7 +44,7 @@ jobs:
  
      - name: Terraform plan
        id: plan
-       run: terraform plan -var-file=./terraform.tfvars
+       run: terraform plan -var-file="terraform.tfvars"
        continue-on-error: true
     
  
@@ -53,7 +53,7 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       run: terraform apply -auto-approve -var-file=terraform.tfvars
+       run: terraform apply -auto-approve -var-file="terraform.tfvars"
        continue-on-error: true
 
      - name: Terraform Destroy
