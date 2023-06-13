@@ -47,7 +47,7 @@ jobs:
        uses: dflook/terraform-plan@v1
        with:
          path: ./
-         var_file: terraform.tfvars
+         var_file: ./terraform.tfvars
          variables: |
            turbo_mode=true
        continue-on-error: true
