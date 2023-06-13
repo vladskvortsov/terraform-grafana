@@ -44,7 +44,7 @@ jobs:
  
      - name: Terraform plan
        id: plan
-       run: terraform plan -var-file="terraform.tfvars"
+       run: terraform plan -var-file="./terraform.tfvars"
        continue-on-error: true
     
  
