@@ -15,7 +15,8 @@ env:
  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
  # S3 bucket for the Terraform state
  BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE}}
- TF_VARS_FILE: terraform.tfvars
+ TF_VARS_FILE: ./terraform.tfvars
+ TF_CLI_ARGS: '-var-file="terraform.tfvars"'
 jobs:
  terraform:
    name: "Terraform Infrastructure Change Management"
@@ -43,7 +44,7 @@ jobs:
  
      - name: Terraform plan
        id: plan
-       run: terraform plan -var-file terraform.tfvars
+       run: terraform plan -var-file=./terraform.tfvars
        continue-on-error: true
     
  
@@ -52,7 +53,7 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       run: terraform apply -auto-approve -var-file terraform.tfvars
+       run: terraform apply -auto-approve -var-file=terraform.tfvars
        continue-on-error: true
 
      - name: Terraform Destroy
