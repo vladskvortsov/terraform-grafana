@@ -1,9 +1,3 @@
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-  default     = "us-west-2"
-}
-
 
 image_id = "ami-0eb260c4d5475b901"
 instance_name = "web"
