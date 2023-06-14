@@ -80,7 +80,7 @@ resource "ansible_playbook" "playbook" {
   extra_vars = {
   ansible_host = aws_instance.web.public_ip
   ansible_ssh_user = "ubuntu"
-  ansible_ssh_private_key_file = var.private_key
+  ansible_ssh_private_key_file = ${var.private_key}
 
   }
 }
