@@ -5,5 +5,3 @@ aws_region = "eu-west-2"
 key = "key"
 security_group_id  = ["sg-00006d10243dc6666"]
 private_key = "~/terraform-grafana/key.pem"
-access_key = "AKIAS6JMJ3VB4FZGHBFT"
-secret_key = "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"
