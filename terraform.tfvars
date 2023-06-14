@@ -4,4 +4,8 @@ public_key_cont = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCdr1Gfzlq3kYLnx4keRGoxL
 aws_region = "eu-west-2"
 key = "key"
 security_group_id  = ["sg-00006d10243dc6666"]
+<<<<<<< HEAD
 private_key = "~/terraform-grafana/key.pem"
+=======
+private_key = "~/terraform-grafana/key.pem"
+>>>>>>> bdd45f1b983466682f439b5fd8219465731f15b9
