@@ -42,7 +42,7 @@ jobs:
     
 
      - name: Terraform Plan
-       run: terraform plan -no-color -var-file=terraform.tfvars && ls
+       run: terraform plan -no-color && ls
        continue-on-error: true
     
  
