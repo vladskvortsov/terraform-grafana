@@ -5,11 +5,7 @@ variable "aws_region" {
 }
 
 
-variable "key" {
-  description = "AWS key"
-  type        = string
-  default     = "key"
-}
+variable "key" {}
 
 variable "image_id" {
   type = string
