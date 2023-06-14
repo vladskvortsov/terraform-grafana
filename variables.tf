@@ -4,6 +4,13 @@ variable "aws_region" {
   default     = "us-west-2"
 }
 
+
+variable "key" {
+  description = "AWS key"
+  type        = string
+  default     = "key"
+}
+
 variable "image_id" {
   type = string
 }
