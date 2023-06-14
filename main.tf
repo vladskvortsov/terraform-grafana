@@ -1,5 +1,4 @@
 
-
 terraform {
   required_providers {
     ansible = {
@@ -74,7 +73,6 @@ resource "ansible_playbook" "playbook" {
 
   }
 }
-
 
 
 
