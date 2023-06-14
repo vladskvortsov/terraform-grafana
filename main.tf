@@ -29,7 +29,7 @@ backend "s3" {
 }
 
 provider "aws" {
-  region     = var.aws_region
+  region     = ${var.aws_region}
 
 }
 
@@ -37,16 +37,16 @@ provider "aws" {
 
 
 resource "aws_instance" "web" {
-  ami               = var.image_id
+  ami               = ${var.image_id}
 
   instance_type     = "t2.micro"
-  key_name               = var.key
-  vpc_security_group_ids = var.security_group_id
+  key_name               = ${var.key}
+  vpc_security_group_ids = ${var.security_group_id}
   monitoring             = true
 
 
   tags = {
-    Name = var.instance_name
+    Name = ${var.instance_name}
     Terraform   = "true"
     Environment = "dev"
   }
