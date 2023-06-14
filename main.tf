@@ -1,4 +1,6 @@
-variable "image_id" {}
+variable "image_id" {
+  type = string
+}
 variable "instance_name" {}
 variable "public_key_cont" {}
 variable "aws_region" {}
