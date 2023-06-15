@@ -11,17 +11,13 @@ terraform {
     }
  }
   
-backend "s3" {
-   region = "eu-west-2"
-   key    = "terraform.tfstate"
- }
-}
 
+}
 provider "aws" {
-  region     = "${var.aws_region}"
-
+    region = "eu-west-2" 
+#    access_key = "${var.access_key}"
+#    secret_key = "${var.secret_key}"
 }
-
 
 
 
@@ -30,8 +26,9 @@ resource "aws_instance" "web" {
 
   instance_type     = "t2.micro"
   key_name               = "${var.key}"
-  vpc_security_group_ids = "${var.security_group_id}"
+  vpc_security_group_ids      = [aws_default_security_group.grafana-sg.id]
   monitoring             = true
+  subnet_id                   = aws_subnet.grafana-subnet-1.id
 
 
   tags = {
@@ -43,20 +40,54 @@ resource "aws_instance" "web" {
 
 
 
-
-
-
-resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.web.id
-  allocation_id = aws_eip.ip.id
-
+resource "aws_vpc" "grafana-vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true 
 }
+
+resource "aws_subnet" "grafana-subnet-1" {
+  vpc_id            = aws_vpc.grafana-vpc.id
+  cidr_block        = "10.0.0.0/16"
+  tags = {
+    Name = "grafana-subnet-1"
+  }
+}
+
+
+
 
 resource "aws_eip" "ip" {
-  vpc = true
+  instance = aws_instance.web.id
 
 }
 
+
+
+
+resource "aws_default_security_group" "grafana-sg" {
+  vpc_id = aws_vpc.grafana-vpc.id
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "grafana-sg"
+  }
+}
 
 
 resource "ansible_playbook" "playbook" {
@@ -73,6 +104,5 @@ resource "ansible_playbook" "playbook" {
 
   }
 }
-
 
 
