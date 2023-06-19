@@ -1,3 +1,19 @@
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+}
+
+
 
 terraform {
   required_providers {
@@ -6,23 +22,28 @@ terraform {
     }
 
     aws = {
-     source = "hashicorp/aws"
+     source = "hashicorp/aws"   
      version = "~> 5.3"
     }
  }
   
 
 }
+
+
 provider "aws" {
-    region = "eu-west-2" 
+    region = "${var.region}" 
 #    access_key = "${var.access_key}"
 #    secret_key = "${var.secret_key}"
 }
 
-
+resource "aws_key_pair" "key" {
+  key_name   = var.key
+  public_key = var.public_key_cont
+}
 
 resource "aws_instance" "web" {
-  ami               = "${var.image_id}"
+  ami               = "${var.image_id}" ##data.aws_ami.ubuntu.id
 
   instance_type     = "t2.micro"
   key_name               = "${var.key}"
@@ -57,12 +78,15 @@ resource "aws_subnet" "grafana-subnet-1" {
 
 
 resource "aws_eip" "ip" {
-  instance = aws_instance.web.id
-
+  vpc = true
 }
 
 
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.web.id
+  allocation_id = aws_eip.ip.id
 
+}
 
 resource "aws_default_security_group" "grafana-sg" {
   vpc_id = aws_vpc.grafana-vpc.id
