@@ -1,4 +1,4 @@
-variable "aws_region" {}
+variable "region" {}
 variable "key" {}
 variable "image_id" {}
 variable "instance_name" {}
