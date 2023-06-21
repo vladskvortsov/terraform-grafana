@@ -4,8 +4,7 @@ A Terraform module for deploying Grafana container on AWS EC2 using Ansible.
 
 ## Prerequisites
 - Terraform
-- AWS Account & AWS CLI Preconfigured (Security group and rules allowing ssh, and port 3000 for Grafana need manual configuration)
-
+- AWS Account & AWS CLI Preconfigured
 
 ## Configuration steps:
 - Deploying single AWS EC2 instance;
@@ -31,7 +30,7 @@ To access Grafana in your browser use Elastic IP created through installiation p
 
 ```sh
 http://13.42.200.69:3000
-```
+``` 
 
 
 > Note: `IMPORTANT NOTICES`
